@@ -26,12 +26,15 @@ int main() {
             read(p1[0], &p, sizeof(int));      // wait for John's number
             if (p >= N) break;
 
-            int r = (rand() % 8) + 2;          // 2 to 9
+            int r = (rand() % 8) + 2;
             p = p * r;
             printf("Michael: x%d -> p=%d\n", r, p);
-
-            write(p2[1], &p, sizeof(int));     // send back to John
-            if (p >= N) break;
+            if (p >= N) {
+                printf("Michael wins!\n");
+                write(p2[1], &p, sizeof(int));
+                break;
+            }
+            write(p2[1], &p, sizeof(int));
         }
         close(p1[0]);
         close(p2[1]);
@@ -53,9 +56,12 @@ int main() {
             int r = (rand() % 8) + 2;
             p = p * r;
             printf("John: x%d -> p=%d\n", r, p);
-
-            write(p1[1], &p, sizeof(int));     // send back to Michael
-            if (p >= N) break;
+            if (p >= N) {
+                printf("John wins!\n");
+                write(p1[1], &p, sizeof(int));
+                break;
+            }
+            write(p1[1], &p, sizeof(int));
         }
 
         printf("Final p = %d. ", p);
