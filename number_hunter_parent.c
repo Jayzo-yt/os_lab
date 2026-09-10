@@ -1,4 +1,4 @@
-//number hunter process creation ex2
+//number hunter parent.c process creation ex2
 
 #include <stdio.h>
 #include <stdlib.h>
